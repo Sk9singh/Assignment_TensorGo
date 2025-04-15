@@ -5,6 +5,7 @@ import session from 'express-session';
 import passport from 'passport';
 import './config/passport.js';
 import authRoutes from './routes/authRoutes.js';
+import cors from 'cors';
 
 dotenv.config();
 const app = express();
@@ -17,6 +18,13 @@ app.use(
       cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }
     })
   );
+
+  app.use(cors({
+    origin: "http://localhost:3000", // React frontend URL
+    methods: ["GET", "POST"],
+    credentials: true
+  }));
+    
 app.use(passport.initialize());
 app.use(passport.session());
 

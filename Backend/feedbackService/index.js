@@ -2,11 +2,16 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import feedbackRoutes from "./routes/feedbackRoutes.js";
-
+import cors from 'cors';
 dotenv.config();
 
 const app = express();
 
+app.use(cors({
+  origin: "http://localhost:3000", // React frontend URL
+  methods: ["GET", "POST"],
+  credentials: true
+}));
 app.use(express.json());  // To parse JSON request body
 app.use("/api", feedbackRoutes);
 
