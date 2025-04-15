@@ -1,17 +1,17 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const passport = require('passport');
-const session = require('express-session');
-const cors = require('cors');
+import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import session from 'express-session';
+import passport from 'passport';
+import cors from 'cors';
+
+import './config/passport.js';
+import authRoutes from './routes/auth.js';
+import feedbackRoutes from './routes/feedback.js';
 
 dotenv.config();
-require('./config/passport');
-
-const authRoutes = require('./routes/auth');
-const feedbackRoutes = require('./routes/feedback');
-
 const app = express();
+
 app.use(express.json());
 app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 
@@ -25,11 +25,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB connected"))
-  .catch(err => console.log("❌ Mongo error:", err));
+  .then(() => console.log('✅ MongoDB Connected'))
+  .catch(err => console.error('❌ Mongo Error:', err));
 
 app.use('/auth', authRoutes);
 app.use('/feedback', feedbackRoutes);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Backend running on port ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Backend running on http://localhost:${PORT}`));
