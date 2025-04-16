@@ -1,4 +1,5 @@
 import React from "react";
+import './index.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { FeedbackProvider } from "./contexts/FeedbackContext";
 import LoginPage from "./pages/LoginPage";

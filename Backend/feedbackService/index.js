@@ -8,11 +8,11 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:3000", // React frontend URL
+  origin: "http://localhost:3000", 
   methods: ["GET", "POST"],
   credentials: true
 }));
-app.use(express.json());  // To parse JSON request body
+app.use(express.json());  
 app.use("/api", feedbackRoutes);
 
 mongoose.connect(process.env.MONGO_URI)

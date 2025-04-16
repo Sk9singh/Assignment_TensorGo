@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const feedbackSchema = new mongoose.Schema({
   userId: {
     type: String,
-    ref: "User",  // Reference to the User model from auth service
+    ref: "User",  
     required: true,
   },
   category: {
