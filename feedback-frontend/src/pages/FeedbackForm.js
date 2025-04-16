@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useFeedback } from "../contexts/FeedbackContext"; // Import the FeedbackContext
+import { useFeedback } from "../contexts/FeedbackContext";
 
 const FeedbackForm = () => {
   const [category, setCategory] = useState("Product Features");
@@ -10,7 +10,7 @@ const FeedbackForm = () => {
 
   const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
-  const { setFeedbackUpdated } = useFeedback(); // Access the context to trigger re-fetch
+  const { setFeedbackUpdated } = useFeedback();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,11 +22,8 @@ const FeedbackForm = () => {
         comments,
       });
       alert("✅ Feedback submitted!");
-      setComments(""); // Clear the comments field
-
-      setFeedbackUpdated(true); // Trigger the update in context
-
-      // Redirect to FeedbackDisplay page
+      setComments("");
+      setFeedbackUpdated(true);
       navigate("/view-feedback");
     } catch (err) {
       alert("❌ Error submitting feedback");
@@ -34,21 +31,22 @@ const FeedbackForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-green-100 via-white to-blue-100">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-blue-100 via-purple-100 to-pink-100 p-8">
       <form
         onSubmit={handleSubmit}
-        className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-xl animate-fade-in"
+        className="w-full max-w-4xl bg-white rounded-3xl shadow-2xl p-14 animate-fade-in"
       >
-        <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">
-          Submit Feedback
+        <h2 className="text-6xl font-bold text-center text-purple-700 mb-12 tracking-tight">
+          ✨ Share Your Feedback
         </h2>
 
-        <div className="mb-6">
-          <label className="block mb-2 font-medium text-gray-700">Category</label>
+        {/* Category */}
+        <div className="mb-10">
+          <label className="block text-2xl font-medium text-gray-700 mb-4">Category</label>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
+            className="w-full px-6 py-4 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-400 transition duration-200 text-lg"
           >
             <option>Product Features</option>
             <option>Product Pricing</option>
@@ -56,34 +54,37 @@ const FeedbackForm = () => {
           </select>
         </div>
 
-        <div className="mb-6">
-          <label className="block mb-2 font-medium text-gray-700">Rating (1-5)</label>
+        {/* Rating */}
+        <div className="mb-10">
+          <label className="block text-2xl font-medium text-gray-700 mb-4">Rating (1 to 5)</label>
           <input
             type="number"
             value={rating}
             min="1"
             max="5"
             onChange={(e) => setRating(e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
+            className="w-full px-6 py-4 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-400 transition duration-200 text-lg"
           />
         </div>
 
-        <div className="mb-6">
-          <label className="block mb-2 font-medium text-gray-700">Comments</label>
+        {/* Comments */}
+        <div className="mb-10">
+          <label className="block text-2xl font-medium text-gray-700 mb-4">Comments</label>
           <textarea
             value={comments}
             onChange={(e) => setComments(e.target.value)}
-            rows="4"
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
+            rows="6"
             placeholder="Write your thoughts here..."
+            className="w-full px-6 py-4 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-400 transition duration-200 text-lg"
           />
         </div>
 
+        {/* Submit */}
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition"
+          className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-5 rounded-xl shadow-lg transition duration-300 text-xl"
         >
-          Submit Feedback
+          🚀 Submit Feedback
         </button>
       </form>
     </div>
