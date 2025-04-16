@@ -41,11 +41,8 @@ router.get("/feedback", async (req, res) => {
   }
 
   try {
-    const feedbackData = await Feedback.aggregate([
-      { $match: { category } },
-      { $group: { _id: "$category", averageRating: { $avg: "$rating" }, feedbackCount: { $sum: 1 } } },
-    ]);
-    res.status(200).json(feedbackData);
+    const feedbackList = await Feedback.find({ category }).sort({ createdAt: -1 }); // show latest first
+    res.status(200).json(feedbackList); // Return actual feedback documents
   } catch (error) {
     res.status(500).send("Error retrieving feedback: " + error.message);
   }
